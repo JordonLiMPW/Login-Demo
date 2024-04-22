@@ -4,6 +4,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     user = request.args.get('user')
+    password = request.args.get('password')
     if user == None:
         return render_template("index.html")
     elif user == 'bob':
