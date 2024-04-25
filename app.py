@@ -12,3 +12,7 @@ def home():
             return "Hello " + user
         else:
             return "user not recognised"
+        
+@app.route("/signup")
+def signup():
+    return "signup"
