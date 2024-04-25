@@ -3,8 +3,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    user = request.args.get('user')
-    password = request.args.get('password')
+    user = request.args.get('un')
+    password = request.args.get('pwd')
     if user == None:
         return render_template("index.html")
     elif user == 'bob' and password == "114514":
