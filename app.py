@@ -15,4 +15,4 @@ def home():
         
 @app.route("/signup")
 def signup():
-    return "signup"
+    return render_template("signup.html")
