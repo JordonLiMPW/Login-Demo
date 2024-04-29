@@ -1,4 +1,5 @@
 from flask import Flask,render_template,request
+
 app = Flask(__name__)
 
 @app.route("/", methods = ["GET","POST"])
@@ -7,12 +8,10 @@ def home():
         return render_template("index.html")
     else:
         f = open("login.txt", "r")
-        un = f.read()
-        pwd = f.read()
+        un = f.readline().strip()
+        pwd = f.readline().strip()
         f.close()
-        print(un)
-        print(len(un))
-        if un[:-1] == request.form and pwd == request.form["pw"]:
+        if un == request.form["un"] and pwd == request.form["pwd"]:
             return "Hello " + un
         else:
             return "user not recognised"
