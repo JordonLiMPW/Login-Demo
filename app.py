@@ -1,18 +1,19 @@
 from flask import Flask,render_template,request
-
 app = Flask(__name__)
+import sqlite3
 
 @app.route("/", methods = ["GET","POST"])
 def home():
     if request.method == "GET":
         return render_template("index.html")
     else:
-        f = open("login.txt", "r")
-        un = f.readline().strip()
-        pwd = f.readline().strip()
-        f.close()
-        if un == request.form["un"] and pwd == request.form["pwd"]:
-            return "Hello " + un
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        cur.execute("SELECT * FROM user WHERE username=? AND password=?",
+                    (request.form["un"],request.form["pwd"]))
+        match = len(cur.fetchall())
+        if match > 0:
+            return "Hello " + request.form["un"]
         else:
             return "user not recognised"
         
