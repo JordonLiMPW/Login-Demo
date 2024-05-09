@@ -22,9 +22,9 @@ def signup():
     if request.method == "GET":
         return render_template("signup.html")
     else:
-        f = open("login.txt", "w")
-        f.write(request.form['un'])
-        f.write("\n")
-        f.write(request.form['pwd'])
-        f.close()
-        return "sign up successful"
+        con = sqlite3.connect("database.db")
+        cur = con.cursor()
+        cur.execute("INSERT INTO user (username, password) VALUES (?,?)",
+                    (request.form["un"],request.form["pwd"]))
+        con.commit()
+        return request.form["un"] + " added"
